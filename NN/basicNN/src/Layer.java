@@ -31,7 +31,7 @@ public class Layer {
         for (Neuron neuron : neurons) {
 
             if (previous == null) {
-                neuron.setActivation(Math.random() * 2 - 1);
+                //neuron.setActivation(Math.random() * 2 - 1);
             } else {
                 for (Neuron parentNeuron : previous.getNeurons()) {
                     neuron.setWeight(parentNeuron, Math.random() * 10 - 5); //tweak

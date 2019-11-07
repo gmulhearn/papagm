@@ -37,7 +37,7 @@ public class Neuron {
             sum += entry.getKey().getActivation() * entry.getValue();
         }
 
-        sum -= this.bias;
+        sum += this.bias;
 
         return sigmoid(sum);
     }
