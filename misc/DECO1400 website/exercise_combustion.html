@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Iron Man's Guide To Car Engines</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<header id="page-header">
+			<h1></h1>
+			<img src = "images/logo2.png" alt = "banner">
+		</header>
+
+		<nav id="primaryMenu">
+			<div id = "learning-tab-active">
+				<ul>
+					<div id = "primaryNav">
+						<li>
+							<a href="index.html"><img src = 'images/homeIcon.png' alt = "home icon"></a>
+						</li>
+						<li>
+							<a href="all_learning.html">Learning</a>
+						</li>
+						<li>
+							<a href="main_exercise_page.html">Story Mode</a>
+						</li>
+					</div>
+					
+					<div id = "secondaryNav">
+						<li>
+							<a href="about.html">About</a>
+						</li>
+						<li>
+							<a href="progression_report.html"><img src = "images/accountIcon.png" alt = "account icon">Progression</a>
+						</li>
+					</div>
+				</ul>
+			</div>
+		</nav>
+
+
+
+		<div id = "main-content">
+
+		<article>
+		<section id = "bread-crumb">
+			<a href = "index.html">Home</a> / <a href = "learning_four_stroke_combustion.html"> Learning: Combustion Stroke</a> / 
+		</section>	
+		<h2>4. Four-Stroke Cycle: The Combustion Stroke. - Quiz</h2>
+			
+		<form>
+			<fieldset class = "quiz" id = "question1">
+				<div class = "form-text">
+					<h3>Question 1.</h3>
+					<p>Is it true that before the ignition is the power stroke?</p>
+				</div>
+
+				<div class = "form-buttons">
+					<ul>
+						<li>
+							<input type="radio" id="q1true" name="e1q1" value="0">
+							<label for="q1true">True</label>
+						</li>
+						<li>
+							<input type="radio" id="q1false" name="e1q1" value="1">
+							<label for="q1false">False</label>
+						</li>
+					</ul>
+				</div>
+
+				<div id = "answer1" style="display: none">
+					<p>The Correct Answer is False</p>
+				</div>
+
+			</fieldset>
+
+			<fieldset class = "quiz" id = "question2">
+					<div class = "form-text">
+						<h3>Question 2.</h3>
+						<p>Which of the following is not directly related to the amount of torque produced?</p>
+					</div>
+	
+					<div class = "form-buttons">
+						<ul>
+							<li>
+								<input type="radio" id="q2a1" name="e1q2" value="0">
+								<label for="q2a1">a. The size of the piston</label>
+							</li>
+							<li>
+								<input type="radio" id="q2a2" name="e1q2" value="1">
+								<label for="q2a2">b. The vehicle weight</label>
+							</li>
+							<li>
+								<input type="radio" id="q2a3" name="e1q2" value="0">
+								<label for="q2a3">c. The pressure on the pistons</label>
+							</li>
+							<li>
+								<input type="radio" id="q2a4" name="e1q2" value="0">
+								<label for="q2a4">d. The throw of the engine</label>
+							</li>
+						</ul>
+					</div>
+
+				<div id = "answer2" style="display: none">
+					<p>The Correct Answer is B</p>
+				</div>
+	
+			</fieldset>
+
+			<div id = "exercise-buttons">
+				<button type = "button" id = "submit" style = 'display: none'>Submit Answers</button>
+				<a href = "main_exercise_page_2.html">Return To Story</a>
+				<button type = "button" id = "reveal" style = 'display: none'>Reveal Answers</button>
+					
+			</div>
+		</form>
+			
+			
+		<div id="ans-container">
+			<a href="#ans-container">Reveal Answers</a>
+			<div id="answers"><strong>Answers:</strong><br><br>Question 1 - False <br>Question 2 - B</div>
+		</div>
+	
+		</article>
+	
+		</div>
+	
+		<script type="text/javascript">
+			document.getElementById('submit').style.display = 'block';
+			document.getElementById('reveal').style.display = 'block';
+			document.getElementById('ans-container').style.display = 'none';
+	
+	
+			document.getElementById('submit').onclick = function() {
+				localStorage.exercise_4 = 0;
+				if (document.getElementById('q2a2').checked) {
+					document.getElementById('question2').style.boxShadow = "3px 8px 29px rgba(0, 255, 0, 0.75)";
+					localStorage.exercise_4 = Number(localStorage.exercise_4) + 1;
+				}
+				else {
+					document.getElementById('question2').style.boxShadow = "3px 8px 29px rgba(255, 0, 0, 0.75)";
+				}
+
+				if (document.getElementById('q1false').checked){
+					document.getElementById('question1').style.boxShadow = "3px 8px 29px rgba(0, 255, 0, 0.75)";
+					localStorage.exercise_4 = Number(localStorage.exercise_4) + 1;
+				}
+				else {
+					document.getElementById('question1').style.boxShadow = "3px 8px 29px rgba(255, 0, 0, 0.75)";
+				}
+			}
+
+			document.getElementById('reveal').onclick = function() {
+				document.getElementById('answer1').style.display = 'block';
+				document.getElementById('answer2').style.display = 'block';
+
+			}
+		
+		</script>
+
+
+	</body>
+</html>

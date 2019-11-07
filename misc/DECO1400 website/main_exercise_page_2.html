@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Iron Man's Guide To Car Engines</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<header id="page-header">
+			<h1></h1>
+			<img src = "images/logo2.png" alt = "banner">
+		</header>
+
+		<nav id="primaryMenu">
+			<div id = "exercise-tab-active">
+				<ul>
+					<div id = "primaryNav">
+						<li>
+							<a href="index.html"><img src = 'images/homeIcon.png' alt = "home icon"></a>
+						</li>
+						<li>
+							<a href="all_learning.html">Learning</a>
+						</li>
+						<li>
+							<a href="main_exercise_page.html">Story Mode</a>
+						</li>
+					</div>
+					
+					<div id = "secondaryNav">
+						<li>
+							<a href="about.html">About</a>
+						</li>
+						<li>
+							<a href="progression_report.html"><img src = "images/accountIcon.png" alt = "account icon">Progression</a>
+						</li>
+					</div>
+				</ul>
+			</div>
+		</nav>
+		<div id = "second-screen">
+		<article id = "game-screen">
+
+			<h2>
+				Welcome to Iron Man's Workshop!
+			</h2>
+				<section>
+					<a href ="#game-screen" id = "JsOnlyElement" style = "display: none">Click to Continue..</a>
+					
+					<div id = "blueprint-buttons" style = "display: block">
+						<a href ="learning_four_stroke_intro.html" id = "intro-button"></a>
+						<a href ="learning_four_stroke_intake.html" id = "intake-button"></a>
+						<a href ="learning_four_stroke_compression.html" id = "compression-button"></a>
+						<a href ="learning_four_stroke_combustion.html" id = "combustion-button"></a>
+						<a href ="learning_four_stroke_exhaust.html" id = "exhaust-button"></a>
+						<a href ="#nonJsOnly" id = 'help'>Help</a>
+					</div>
+					<div id = "JsOnlyElement2" style = "display: none">
+						<img src = "images/tony_stark.png" alt = "tony stark / iron man unhelmeted">
+						<p id = "dialogue-2"></p>
+					</div>
+				</section>
+
+
+		</article>
+		</div>
+
+		<div id = "nonJsOnly">
+			<article>
+				<h2>Instructions:</h2>
+				<p><img src = "images/tony_stark.png" alt = "tony stark">Ah! I see you don't have JavaScript enabled, no worries, i'll explain it down here instead! <br><br> Welcome to my blueprints for a 4 stroke car engine. You'll see as you hover over each diagram, they will light up, when you click on them they will take you to the relevant learning article. After you've finished reading that article you can test your knowledge with the pairing quiz which you'll find linked at the bottom of each learning page. <br><br> I've laid out the content in order for you from 1 to 5, I highly suggest you learn in this order and by the end, you should be a four-stroke engine expert! Good Luck!</p>
+			</article>
+		</div>	
+
+		<script src="js/blueprint.js"></script>
+
+		<script type = "text/javascript">
+			
+			//functionality for typing animation
+			var dialogue = "Welcome to my blueprints for a 4 stroke car engine. You'll see as you hover over each diagram, they will light up. When you click on them they will take you to the relevant learning article. After you've finished reading that article you can test your knowledge with the pairing quiz which you'll find linked at the bottom of each learning page. \r \r I've laid out the content in order for you from 1 to 5, I highly suggest you learn in this order and by the end, you should be a four-stroke engine expert! Good Luck!";
+			
+			var i = 0;
+			var speed = 40;
+
+			//run animation when window loads
+			window.onload = typingAnimation();
+
+			//loop from i = 0 to i = length of the dialogue, 
+			//each time print the character at i. hence rewritting the sentence, 
+			//but with a time delay between each letter.
+			function typingAnimation() {
+				if (i < dialogue.length) {
+					document.getElementById('dialogue-2').innerHTML += dialogue.charAt(i);
+					i++;
+					setTimeout(typingAnimation, speed);
+				}
+			}
+		</script>
+
+	</body>
+</html>

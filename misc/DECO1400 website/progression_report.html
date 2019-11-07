@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Iron Man's Guide To Car Engines</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<header id="page-header">
+			<h1></h1>
+			<img src = "images/logo2.png" alt = "banner">
+		</header>
+
+		<nav id="primaryMenu">
+			<div id = "progression-tab-active">
+				<ul>
+					<div id = "primaryNav">
+						<li>
+							<a href="index.html"><img src = 'images/homeIcon.png' alt = "home icon"></a>
+						</li>
+						<li>
+							<a href="all_learning.html">Learning</a>
+						</li>
+						<li>
+							<a href="main_exercise_page.html">Story Mode</a>
+						</li>
+					</div>
+					
+					<div id = "secondaryNav">
+						<li>
+							<a href="about.html">About</a>
+						</li>
+						<li>
+							<a href="progression_report.html"><img src = "images/accountIcon.png" alt = "account icon">Progression</a>
+						</li>
+					</div>
+				</ul>
+			</div>
+		</nav>
+
+		<article id = "results" style = "display: none">
+            <h2>Progression Report</h2>
+            <h3 id = "total">Total Quiz Results:</h3>
+            <h3 id = "exercise1">Introduction Quiz Results:</h3>
+            <h3 id = "exercise2">Intake Stroke Quiz Results:</h3>
+            <h3 id = "exercise3">Compression Stroke Quiz Results:</h3>
+            <h3 id = "exercise4">Combustion Stroke Quiz Results:</h3>
+            <h3 id = "exercise5">Exhaust Stroke Quiz Results:</h3>
+            <a href="#" id = "clear">Clear All Progression</a>
+        </article>
+        <article id = 'degrade'>
+            <h2>Progression Report</h2>
+            <p>To view your progression report please enable JavaScript on your browser</p>
+        </article>
+		
+        <script type="text/javascript">
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('degrade').style.display = 'none';
+            
+            var score = Number(localStorage.exercise_1) + Number(localStorage.exercise_2) + Number(localStorage.exercise_3) + Number(localStorage.exercise_4) + Number(localStorage.exercise_5);
+            document.getElementById('total').innerHTML += "  " + (score*10) +"%";
+            
+            document.getElementById('exercise1').innerHTML += "   " + Number(localStorage.exercise_1)*50 + "%";
+            document.getElementById('exercise2').innerHTML += "   " + Number(localStorage.exercise_2)*50 + "%";
+            document.getElementById('exercise3').innerHTML += "   " + Number(localStorage.exercise_3)*50 + "%";
+            document.getElementById('exercise4').innerHTML += "   " + Number(localStorage.exercise_4)*50 + "%";
+            document.getElementById('exercise5').innerHTML += "   " + Number(localStorage.exercise_5)*50 + "%";
+
+            document.getElementById('clear').onclick = function() {
+                localStorage.exercise_1 = null;
+                localStorage.exercise_2 = null;
+                localStorage.exercise_3 = null;
+                localStorage.exercise_4 = null;
+                localStorage.exercise_5 = null;
+                location.reload();
+            }
+        </script>
+	</body>
+</html>

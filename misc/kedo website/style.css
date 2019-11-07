@@ -1,0 +1,323 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	line-height: 1.5em;
+
+}
+
+/* Page Header */
+
+#page-header {
+	background: rgb(214, 173, 230);
+	text-align: center;
+	padding: 10em 2em;
+}
+
+.kedos img {
+	max-width: 250px;
+	max-height: 250px;
+}
+
+
+.kedos img:nth-child(1) {
+	opacity: 0;
+	position: absolute;
+	top: 0px;
+	animation-name: kedo;
+	animation-duration: 15s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+.kedos img:nth-child(2) {
+	opacity: 0;
+	position: absolute;
+	top: 300px;
+
+	animation-name: kedo;
+	animation-duration: 10s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-delay: 2s; 	
+}
+.kedos img:nth-child(3) {
+	opacity: 0;
+	position: absolute;
+	top: 600px;
+
+	animation-name: kedo;
+	animation-duration: 8s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-delay: 5s; 
+}
+
+.kedos img:nth-child(4) {
+	opacity: 0;
+	position: absolute;
+	top: 900px;
+
+	animation-name: kedo2;
+	animation-duration: 12s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+	animation-delay: 3s; 
+}
+
+.kedos img:nth-child(5) {
+	opacity: 0;
+	position: absolute;
+	top: 1200px;
+
+	animation-name: kedo;
+	animation-duration: 12s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-delay: 1s; 
+}
+
+.kedos img:nth-child(6) {
+	opacity: 0;
+	position: absolute;
+	top: 1500px;
+
+	animation-name: kedo;
+	animation-duration: 10s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+	animation-delay: 4s; 
+}
+
+.kedos img:nth-child(7) {
+	opacity: 0;
+	position: absolute;
+	top: 1800px;
+
+	animation-name: kedo;
+	animation-duration: 7s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-delay: 2s; 
+}
+
+.kedos img:nth-child(8) {
+	opacity: 0;
+	position: absolute;
+	top: 2100px;
+	animation-name: kedo;
+	animation-duration: 12s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+	animation-delay: 0s; 
+}
+
+.buster img{
+	opacity: 0;
+	max-width: 250px;
+	max-height: 250px;
+	position:absolute;
+	top: 1800px;
+	animation-name: buster;
+	animation-duration: 15s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate-reverse;
+	animation-delay: 0s; 
+}
+
+.balloons img {
+	max-width: 250px;
+	max-height: 250px;
+	position: fixed;
+	top:100%;
+	animation-name: balloons;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	animation-direction: forwards;
+	animation-delay: 19s;
+}
+
+.balloons img:nth-child(1) {
+	left: 20%;
+	animation-delay: 19s; 
+}
+.balloons img:nth-child(2) {
+	left: 40%;
+	animation-delay: 20s; 
+}
+.balloons img:nth-child(3) {
+	left: 60%;
+	animation-delay: 19.5s; 
+}
+.balloons img:nth-child(4) {
+	left: 80%;
+	animation-delay: 19s; 
+}
+.balloons img:nth-child(5) {
+	left: 0%;
+	animation-delay: 20.5s; 
+}
+
+@keyframes kedo {
+	from {left: -20%;
+		opacity: 100;}
+	to {left: 83%;
+		opacity: 100;}
+}
+
+@keyframes kedo2 {
+	from {left: -20%;
+		opacity: 100;}
+	to {left: 75%;
+		opacity: 100;}
+	}
+
+@keyframes buster {
+	0% {top:0px;
+		left:0px;
+		opacity: 100;
+		image-orientation: 0deg;}
+	50% {top:100%;
+		left: 70%;
+		opacity: 100;
+		image-orientation: 360deg;}
+	100% {top:200%;
+		left:0px;
+		opacity: 100;
+		image-orientation: 0deg;}
+}
+@keyframes balloons {
+	from {top: 100%;}
+	to {top: 0%;}
+}
+ 
+/* Menu */
+
+#menu {
+	background: rgba(195, 0, 255, 0.75);
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	
+}
+
+#menu ul {
+	display: flex;
+	justify-content: center;
+}
+
+#menu li {
+	list-style: none;
+	background: rgba(0,0,255,0);
+	-webkit-transition: background-color 1s;
+}
+
+#menu li:hover {
+	background: white;
+}
+
+#menu a {
+	display: block;
+	color: white;
+	padding: 1em 1.5em;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-transition: color 1s;
+}
+
+#menu a:hover {
+	color: rgba(195, 0, 255, 0.75);
+}
+
+/* Article */
+
+article {
+	padding: 2em;
+}
+
+article h2 {
+	font-size: 3em;
+	margin-bottom: 0.5em;
+}
+
+article h3 {
+	font-size: 2em;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+	color: #999;
+}
+
+article p {
+	margin-bottom: 1em;
+}
+
+.button a {
+	display: inline-block;
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0.5em 1em;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: white;
+	-webkit-transition: background-color 1s;
+	-webkit-transition: color 1s;
+}
+
+.button a:hover {
+	background-color: black;
+	color: white;
+}
+
+.button a:active {
+	transform: scale(0.9);
+}
+
+.buttonhead a {
+	display: inline-block;
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0.5em 1em;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: black;
+	-webkit-transition: background-color 1s;
+	-webkit-transition: color 1s;
+}
+
+.buttonhead a:hover {
+	background-color: black;
+	color: white;
+}
+
+.buttonhead a:active {
+	transform: scale(0.9);
+}
+
+
+.mems {
+	text-align: center;
+}
+
+.mems img{
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+	max-height: 500px;
+}

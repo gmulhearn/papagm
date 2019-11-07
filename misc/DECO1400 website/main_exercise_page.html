@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Iron Man's Guide To Car Engines</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<header id="page-header">
+			<h1></h1>
+			<img src = "images/logo2.png" alt = "banner">
+		</header>
+
+		<nav id="primaryMenu">
+			<div id = "exercise-tab-active">
+				<ul>
+					<div id = "primaryNav">
+						<li>
+							<a href="index.html"><img src = 'images/homeIcon.png' alt = "home icon"></a>
+						</li>
+						<li>
+							<a href="all_learning.html">Learning</a>
+						</li>
+						<li>
+							<a href="main_exercise_page.html">Story Mode</a>
+						</li>
+					</div>
+					
+					<div id = "secondaryNav">
+						<li>
+							<a href="about.html">About</a>
+						</li>
+						<li>
+							<a href="progression_report.html"><img src = "images/accountIcon.png" alt = "account icon">Progression</a>
+						</li>
+					</div>
+				</ul>
+			</div>
+		</nav>
+
+		<article id = "game-screen">
+
+			<h2>
+				Welcome to Iron Man's Workshop!
+			</h2>
+
+			<section id = "game-screen-1">
+				<a href ="main_exercise_page_2.html#game-screen">Click to Continue..</a>
+				<p id = 'dialogue-1-no-js'>Hey There! I'm Tony Stark, a.k.a. Iron Man, welcome to my workshop. 
+					
+					My pal Spider-Man has been having a bit of trouble with his car's engine recently, so i was hoping maybe if I taught you a bit about his car's engine (a four stroke engine) you might be able to help him out instead - Because I'm just a little preoccupied with saving the world at the moment! So how does that sound? </p>
+				<p id = 'dialogue-1' style = "display: none"></p>
+				<img src = "images/tony_stark.png" alt = "tony stark / iron man unhelmeted">
+				
+			</section>
+
+		</article>
+		
+		<script type = "text/javascript">
+			document.getElementById('dialogue-1').style.display = "block";
+			var dialogue = document.getElementById('dialogue-1-no-js').innerHTML;
+			document.getElementById('dialogue-1-no-js').style.display = 'none';
+			var i = 0;
+			var speed = 40;
+
+			window.onload = typingAnimation();
+			function typingAnimation() {
+				if (i < dialogue.length) {
+					document.getElementById('dialogue-1').innerHTML += dialogue.charAt(i);
+					i++;
+					setTimeout(typingAnimation, speed);
+				}
+			}
+		</script>
+
+
+	</body>
+</html>
