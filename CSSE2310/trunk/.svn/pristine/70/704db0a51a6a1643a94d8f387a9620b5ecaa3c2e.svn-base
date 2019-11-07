@@ -1,0 +1,39 @@
+#include "2310sharedPlayer.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+Status show_message(Status s) {
+    const char* messages[] = {"",
+        "Usage: player players myid threshold handsize\n",
+        "Invalid players\n",
+        "Invalid position\n",
+        "Invalid threshold\n",
+        "Invalid hand size\n",
+        "Invalid message\n",
+        "EOF\n"};
+
+    fputs(messages[s], stderr);
+    return s;
+}
+
+bool check_if_num(char* string) {
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] - '0' < 0 || string[i] - '0' > 9) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void check_basic_args(int argv, char** argc) {
+   if (argv != 5) {
+      exit(show_message(INCORRECT_NUM_ARGS));
+   }
+   if (!check_if_num(argc[1]) || atoi(argc[1]) < 2) {
+       exit(show_message(INVALID_NUM_PLAYERS));
+   }
+
+}
+

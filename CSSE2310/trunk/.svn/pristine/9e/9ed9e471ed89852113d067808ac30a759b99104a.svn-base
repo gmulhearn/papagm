@@ -1,0 +1,243 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <math.h>
+#include <limits.h>
+
+typedef enum {
+
+    NORMAL_EXIT = 0,
+    LESS_THAN_FOUR_ARGS = 1,
+    INVALID_THRESHOLD = 2,
+    DECK_READ_ERR = 3,
+    NOT_ENOUGH_CARDS = 4,
+    PLAYER_ERR = 5,
+    UNEXPECTED_EOF = 6,
+    INVALID_MSG = 7,
+    INVALID_CHOICE = 8,
+    RECEIVED_SIGHUP = 9
+} Status;
+
+Status show_message(Status s) {
+    const char* messages[] = {"",
+            "Usage: 2310hub deck threshold player0 {player1}\n",
+            "Invalid threshold\n",
+            "Deck error\n",
+            "Not enough cards\n",
+            "Player error\n",
+            "Player EOF\n",
+            "Invalid message\n",
+            "Invalid card choice\n",
+            "Ended due to signal\n"};
+
+    fputs(messages[s], stderr);
+    return s;
+}
+
+typedef struct {
+    char rank;
+    char suit;
+} Card;
+
+typedef struct {
+    unsigned int length;
+    unsigned int used;
+    Card* cards;
+} Deck;
+
+typedef struct {
+    unsigned int size;
+    Card* cards;
+} Hand;
+
+typedef struct {
+    Hand hand;
+    int myID;
+    char* name;
+    int points;
+    int roundsWon;
+    int numDOnWin;
+} Player;
+
+typedef struct {
+    char leadSuit;
+    int currTurn;
+    Player leader;
+    Player winner;
+    Card* cardsPlaced;
+} Round;
+
+typedef struct {
+    int numRounds;
+    int currentRound;
+    Round* rounds;
+    int numPlayers;
+    Player* players;
+    int threshold;
+
+    int argv;
+    char** argc;
+} Game;
+
+
+//return false if not num
+//return true if num
+bool check_if_num(char* string) {
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] - '0' < 0 || string[i] - '0' > 9) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void check_basic_args(int argv, char** argc) {
+    if (argv < 5) {
+        exit(show_message(LESS_THAN_FOUR_ARGS));
+    }
+    if (!check_if_num(argc[2]) || atoi(argc[2]) < 2) {
+        exit(show_message(INVALID_THRESHOLD));
+    }
+}
+
+bool check_card_valid(char suit, char rank) {
+    if (suit != 'S' && suit != 'C' && suit != 'D' && suit != 'H') {
+        return false;
+    }
+    if (!((rank >= '1' && rank <= '9') || (rank >= 'a' && rank <= 'f'))) {
+        return false;
+    }
+    return true;
+}
+
+Deck load_deck_file(char* fileName) {
+    FILE* deckFile = fopen(fileName, "r");
+    if (!deckFile) {
+        exit(show_message(DECK_READ_ERR));
+    }
+    Deck deck;
+    const short buffSize = (short)log10(INT_MAX) + 3;
+    char buffer[buffSize];
+    if (!fgets(buffer, buffSize - 1, deckFile)) {
+        exit(show_message(DECK_READ_ERR));
+    }
+    char* err;
+    unsigned int deckSize = strtoul(buffer, &err, 10);
+    if (*err != '\n') {
+        exit(show_message(DECK_READ_ERR));
+    }
+
+    Card* cards = malloc(sizeof(Card) * deckSize);
+
+    deck.length = deckSize;
+    for (int i = 0; i < deckSize; i++) {
+        if (!fgets(buffer, buffSize - 1, deckFile)) {
+            free(cards);
+            exit(show_message(DECK_READ_ERR));
+        }
+        if (((buffer[2] != '\n') && (buffer[2] != '\0')) ||
+                !check_card_valid(buffer[0], buffer[1])) {
+            free(cards);
+            exit(show_message(DECK_READ_ERR));
+        }
+        cards[i].rank = buffer[0];
+        cards[i].suit = buffer[1];
+    }
+    deck.used = 0;
+    deck.cards = cards;
+    fclose(deckFile);
+
+    return deck;
+}
+
+char* hand_to_string(Hand* playerHand) {
+
+    char num[50];
+    sprintf(num, "%d", playerHand->size);
+    char* string = malloc(sizeof(char) * 
+            (4 + strlen(num) + 3 * (playerHand->size) + 1));
+
+    char commaSuitRank[3];
+
+    strcpy(string, "HAND"); 
+    strcat(string, num);
+    
+    for (int i = 0; i < playerHand->size; i++) {
+        sprintf(commaSuitRank, ",%c%c", 
+                playerHand->cards[i].suit, playerHand->cards[i].rank);
+        strcat(string, commaSuitRank);
+    }
+    
+    return string;
+}
+
+Hand init_hand(Deck* deck, int handSize) {
+    Hand playerHand;
+    playerHand.size = handSize;
+
+    Card* cards = malloc(sizeof(Card) * handSize);
+
+    for (int i = 0; i < handSize; i++) {
+        cards[i] = deck->cards[deck->used];
+        deck->used++;
+    }
+    playerHand.cards = cards;
+
+    return playerHand;
+}
+
+void init_players(Game* game, Deck* deck) {
+    int handSize = (deck->length) / game->numPlayers;
+    game->numRounds = handSize;
+    if (game->numPlayers < 1000) { //temp safety measure
+        for (int i = 0; i < game->numPlayers; i++) {
+            Player player;
+            Hand playerHand = init_hand(deck, handSize);
+            player.hand = playerHand;
+            player.myID = i;
+            player.name = game->argc[i + 3];
+            player.points = 0;
+            player.roundsWon = 0;
+            game->players[i] = player;
+            
+            //temporary testing:
+            //char* string = hand_to_string(&playerHand);
+            //printf(string);
+            //free(string);
+            //printf("\n");
+            //fflush(stdin);
+            //
+            //probs fork here
+            
+        }
+    }
+}
+
+Game init_game(int argv, char** argc) {
+    Game game;
+    game.numPlayers = argv - 3;
+    game.threshold = atoi(argc[2]); //is ok because already checked arg
+    game.players = malloc(sizeof(Player) * game.numPlayers);
+    
+    //temporary measure
+    game.argv = argv;
+    game.argc = argc;
+
+    return game;
+}
+
+void init(int argv, char** argc) {
+    check_basic_args(argv, argc);
+    Deck deck = load_deck_file(argc[1]);
+    Game game = init_game(argv, argc);
+    init_players(&game, &deck);
+
+}
+
+int main(int argv, char** argc) {
+
+    init(argv, argc);
+    
+    return 0;
+}

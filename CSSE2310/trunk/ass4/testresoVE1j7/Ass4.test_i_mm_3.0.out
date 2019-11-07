@@ -1,0 +1,9 @@
+Goods:
+glass -5
+none 4
+send 1
+sond -2
+Neighbours:
+nc
+test2
+test3

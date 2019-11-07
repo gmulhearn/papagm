@@ -1,0 +1,20 @@
+-2046978304 sent: IM:50989:test1
+
+-2046978304 read IM:2222:nc
+
+-2046978304 read Connect:43731
+
+-2057468160 sent: IM:50989:test1
+
+-2046978304 read Connect:43731
+
+-2057468160 read IM:43731:test2
+
+-2046978304 read Deliver:2:glass
+
+Goods:
+glass 4
+send 1
+Neighbours:
+nc
+test2

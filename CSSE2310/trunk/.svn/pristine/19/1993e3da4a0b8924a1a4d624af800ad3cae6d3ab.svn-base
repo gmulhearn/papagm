@@ -1,0 +1,46 @@
+#include "2310sharedPlayer.h"
+
+int strat(Game* game) {
+    char suits[5];
+    strcpy(suits, "SCDH");
+    //1
+    if (is_lead(game)) {
+        for (int i = 0; i < 4; i++) {
+            if (has_suit(game->player.hand, suits[i])) {
+                return find_highest_suit(game->player.hand, suits[i]);
+            }
+        }
+    } else if (has_suit(game->player.hand,
+                game->rounds[game->currentRound].leadSuit)) {
+        return find_lowest_suit(game->player.hand, 
+                game->rounds[game->currentRound].leadSuit);
+    } else {
+        strcpy(suits, "DHSC");
+        for (int i = 0; i < 4; i++) {
+            if (has_suit(game->player.hand, suits[i])) {
+                return find_highest_suit(game->player.hand, suits[i]);
+            }
+        }
+    }
+
+    return -420;
+}
+
+
+int main(int argv, char** argc) {
+    
+    Game game = init(argv, argc);
+
+    //print_info(game);
+    
+   // play_card(1, &game);
+
+    //print_info(game);
+    
+    //printf("%d\n", is_my_turn(read_stdin(), game));
+    
+    //strat(&game);
+    game_loop(&game);
+
+    return 0;
+}

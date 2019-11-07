@@ -1,0 +1,10 @@
+#include "2310sharedPlayer.h"
+
+int main(int argv, char** argc) {
+    
+    Game game = init(argv, argc);
+
+    print_info(game);
+
+    return 0;
+}

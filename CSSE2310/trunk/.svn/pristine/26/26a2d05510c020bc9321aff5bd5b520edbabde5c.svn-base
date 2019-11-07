@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+typedef enum {
+    NORMAL_EXIT = 0,
+    INCORRECT_NUM_ARGS = 1,
+    INVALID_NUM_PLAYERS = 2,
+    INVALID_POSITION = 3,
+    INVALID_THRESHOLD = 4,
+    INVALID_HAND_SIZE = 5,
+    INVALID_MSG = 6,
+    UNEXPECTED_EOF = 7
+} Status;
+
+typedef struct { 
+    char rank;
+    char suit;
+} Card;
+
+typedef struct {
+    int size;
+    Card* cards;
+} Hand;
+
+typedef struct {
+    int myID;
+    Hand hand;
+} Player;
+
+typedef struct {
+    int numPlayers;
+    int threshold;
+    Player player;
+} Game;
+
+extern Status show_message(Status s);
+extern char* check_basic_args(int argv, char** argc);
+extern int interpret_msg(char* hubMsg);
+extern Hand interpret_hand(char* hubMsg, Game game);
+extern char* read_stdin(void);
+extern Player init_player(int argv, char** argc, Game* game, char* handMsg);
+extern Game init(int argv, char** argc);
+extern void print_info(Game game);
+extern char* hand_to_string(Hand* playerHand);

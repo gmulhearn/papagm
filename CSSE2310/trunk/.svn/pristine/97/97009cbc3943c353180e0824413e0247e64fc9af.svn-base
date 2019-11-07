@@ -1,0 +1,207 @@
+#include "2310sharedPlayer.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+Status show_message(Status s) {
+    const char* messages[] = {"",
+            "Usage: player players myid threshold handsize\n",
+            "Invalid players\n",
+            "Invalid position\n",
+            "Invalid threshold\n",
+            "Invalid hand size\n",
+            "Invalid message\n",
+            "EOF\n"};
+
+    fputs(messages[s], stderr);
+    return s;
+}
+
+bool check_if_num(char* string) {
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] - '0' < 0 || string[i] - '0' > 9) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool check_valid_card(char suit, char rank) {
+    if (suit != 'S' && suit != 'C' && suit != 'D' && suit != 'H') {
+        return false;
+    }
+    if (!((rank >= '1' && rank <= '9') || (rank >= 'a' && rank <= 'f'))) {
+        return false;
+    }
+    return true;
+}
+
+
+char* check_basic_args(int argv, char** argc) {
+    
+    if (argv != 5) {
+        exit(show_message(INCORRECT_NUM_ARGS));
+    }
+    if (!check_if_num(argc[1]) || atoi(argc[1]) < 2) {
+        exit(show_message(INVALID_NUM_PLAYERS));
+    }
+    if (!check_if_num(argc[2]) || atoi(argc[2]) > atoi(argc[1]) - 1) {
+        exit(show_message(INVALID_POSITION));
+    }
+    if (!check_if_num(argc[3]) || atoi(argc[3]) < 2) {
+        exit(show_message(INVALID_THRESHOLD));
+    }
+    if (!check_if_num(argc[4]) || atoi(argc[4]) < 1) {
+        exit(show_message(INVALID_HAND_SIZE));
+    }
+    char* firstMsg = read_stdin();
+    if (interpret_msg(firstMsg) != 1) {
+        exit(show_message(INVALID_MSG));
+    }
+
+    return firstMsg;
+
+    //fprintf(stdout, "@");
+    //fflush(stdout);
+}
+
+char* read_stdin(void) {
+    char* string = malloc(sizeof(char) * 420); //fix buffer
+    char currCharacter = ' ';
+    int count = 0;
+
+    while (1) {
+        currCharacter = fgetc(stdin);
+        if (currCharacter == EOF) {
+            exit(show_message(UNEXPECTED_EOF));
+        }
+        if (currCharacter == '\n') {
+            string[count] = '\0';
+            return string;
+        } else {
+            string[count] = currCharacter;
+            count++;
+        }
+    }
+}
+
+int interpret_msg(char* hubMsg) {
+    const char* hand = "HAND";
+    const char* newRound = "NEWROUND";
+    const char* played = "PLAYED";
+    const char* gameover = "GAMEOVER";
+
+    if (!strncmp(hubMsg, hand, 4)) {
+        //interpret_hand(hubMsg);
+        return 1;
+    } else if (!strncmp(hubMsg, played, 6)) {
+        //interpret move
+        return 2;
+    } else if (!strncmp(hubMsg, newRound, 8)) {
+        //interpret round
+        return 3;
+    } else if (!strncmp(hubMsg, gameover, 8)) {
+        //intrpet game over
+        return 4;
+    } else {
+        exit(show_message(INVALID_MSG));
+    }
+}
+
+Hand interpret_hand(char* hubMsg, Game game) {
+    char handSize[69]; //fix
+    int counter = 4;
+
+    for (int i = 0; i < 69; i++) {
+        if (hubMsg[i + 4] == ',') {
+            handSize[i] = '\0';
+            break;
+        } else if (hubMsg[i + 4] == '\0') {
+            exit(show_message(INVALID_MSG));
+            break;
+        } else {
+            handSize[i] = hubMsg[i + 4];
+        }
+        counter++;
+    }
+    if (!check_if_num(handSize)) {
+        exit(show_message(INVALID_MSG));
+    }
+    if (atoi(handSize) != game.player.hand.size) {
+        exit(show_message(INVALID_MSG));
+    }
+
+    Hand hand;
+    Card* cards = malloc(sizeof(Card) * atoi(handSize));
+
+    for (int i = 0; i < atoi(handSize); i++) {
+        Card card;
+        if (hubMsg[counter++] != ',') {
+            exit(show_message(INVALID_MSG));
+        } 
+        card.suit = hubMsg[counter++];
+        if (!check_valid_card(card.suit, '2')) {
+            exit(show_message(INVALID_MSG));
+        }
+        card.rank = hubMsg[counter++];
+        if (!check_valid_card(card.suit, card.rank)) {
+    
+            exit(show_message(INVALID_MSG));
+        }
+        cards[i] = card;
+    }
+    if (hubMsg[counter++] != '\0') {
+        exit(show_message(INVALID_MSG));
+    }
+    hand.cards = cards;
+    hand.size = atoi(handSize);
+
+    return hand;
+}
+
+Player init_player(int argv, char** argc, Game* game, char* handMsg) {
+    Player player;
+    player.myID = atoi(argc[2]);
+    game->numPlayers = atoi(argc[1]);
+    game->threshold = atoi(argc[3]);
+    player.hand = interpret_hand(handMsg, *game);
+
+    return player;
+}
+
+Game init(int argv, char** argc) {
+    Game game;
+    char* handMsg = check_basic_args(argv, argc);
+    game.player = init_player(argv, argc, &game, handMsg);
+    
+    printf("@");
+    fflush(stdout);
+
+    return game;
+}
+
+char* hand_to_string(Hand* playerHand) {
+
+    char* string = malloc(sizeof(char) * 2 * playerHand->size);
+    strcpy(string, "");
+    char suitRank[3];
+
+    for (int i = 0; i < playerHand->size; i++) {
+        sprintf(suitRank,"%c%c ", playerHand->cards[i].suit,
+                playerHand->cards[i].rank);
+        strcat(string, suitRank);
+    }
+
+    return string;
+}
+
+
+void print_info(Game game) {
+    printf("\n\nGame: numPlayers - %d, threshold - %d \n",
+            game.numPlayers, game.threshold);
+    printf("Player: myID - %d \n", game.player.myID);
+    printf("Hand: size - %d \n", game.player.hand.size);
+    printf("Current Hand - %s \n\n", hand_to_string(&(game.player.hand)));
+}
+

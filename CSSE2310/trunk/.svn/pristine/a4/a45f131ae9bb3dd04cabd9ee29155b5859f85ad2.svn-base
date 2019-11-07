@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+
+struct card {
+	char suit;
+	int number;
+	int null; //1 = null
+};
+
+struct player {
+	int id;
+	struct card* hand;
+	char type;
+};
+
+void printBoard(int, int, struct card**);
+void game(int width, int height, struct card** board, struct player p1, struct player p2, int** deck);
+
+struct card pickUpCard(int** deck) {
+	int i = 0;
+	struct card newCard;
+	while (i == 0) {
+		srand(time(NULL)); //this may be whats slowing the runtime
+		int suit = rand() % 5;
+		int num = (rand() % 9) + 1;
+		if (deck[suit][num] == 1) {
+			deck[suit][num] = 0;
+			newCard.null = 0;
+			char suits[] = {'A','B','C','D','E'};
+			newCard.suit = suits[suit];
+			newCard.number = num;
+			i = 1;
+		}
+	}
+	return newCard;
+}
+
+void initHand(struct player p, int** deck) {
+	for (int i = 0; i < 5; i++) {
+		p.hand[i] = pickUpCard(deck);
+	}
+}
+
+void newGame(char** argv) {
+	//this function focuses on initializing and setting up the game
+	struct card blankCard;
+	blankCard.null = 1;
+
+	int w = atoi(argv[2]);
+	int h = atoi(argv[3]);
+	//initialize new players and deck
+	struct player p1;
+	p1.hand = (struct card*) malloc(sizeof(struct card*) * 6); 
+	struct player p2;
+	p2.hand = (struct card*) malloc(sizeof(struct card*) * 6);
+	
+	int** deck = (int**) malloc(sizeof(int*) * 5);
+	// deck[suit num][number] - value 1 = present, 0 = absent
+	for (int s = 0; s < 5; s++) {
+		deck[s] =  (int*) malloc(sizeof(int) * 9);
+		for (int n = 1; n < 10; n++) {
+			deck[s][n] = 1; //all cards present
+		}
+	}
+	//init hand
+	initHand(p1, deck);
+	initHand(p2, deck);
+
+	//init board
+	struct card** board = (struct card**) malloc(sizeof(struct card*) * w);
+	for (int i = 0; i < w; i++) {
+		board[i] = (struct card*) malloc(sizeof(struct card) * h);
+		//set to default blank cards
+		for (int j = 0; j < h; j++) {
+			board[i][j] = blankCard; 
+		}
+	}
+	//after all is initialized, start game
+	game(w, h, board, p1, p2, deck); 
+}
+
+void place(int x, int y, struct card card, struct card** board) {
+	board[x][y] = card;
+}
+
+void printBoard(int width, int height, struct card** board) {
+
+	for (int h = 0; h < height; h++) {
+		for (int w = 0; w < width; w++) {
+			//decode the card for printing
+			if (board[w][h].null == 1) {
+				printf(" * ");
+			}
+			else {
+				printf("%d%c ", board[w][h].number, board[w][h].suit);
+			}
+		}
+		printf("\n");
+	}
+}
+
+void printDeck(int** deck) {
+	 for (int i = 0; i < 5; i++) {
+		printf("suit %d:  ", i);
+		for (int j = 1; j < 10; j++) {
+			printf("%d", deck[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+void printHand(struct player p) {
+	for (int i = 0; i < 5; i++) {
+		//todo: check null card`
+		printf(" %d%c ", p.hand[i].number, p.hand[i].suit);
+	}
+	printf("\n");
+
+}
+
+void game(int width, int height, struct card** board, struct player p1, struct player p2, int** deck) {
+	//temporary tests
+	place(2, 2, pickUpCard(deck), board);	
+	place(1, 0, pickUpCard(deck), board);	
+	printBoard(width, height, board);
+	printf("player 1 hand: ");
+	printHand(p1);
+	printDeck(deck);
+}
+
+int main(int argc, char** argv) {
+	
+	if (argc == 6) {
+		newGame(argv);
+	}
+
+	if (argc == 4) {
+		//code to load game
+	}
+
+	else {
+		//exit status 1
+		
+	}	
+
+	return 0;
+}

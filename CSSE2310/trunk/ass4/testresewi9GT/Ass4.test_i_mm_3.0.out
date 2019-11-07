@@ -1,0 +1,34 @@
+-232134912 sent: IM:57209:test1
+
+-232134912 read IM:2222:nc
+
+-232134912 read Connect:58790
+
+-232134912 read Connect:49660
+
+-253114624 sent: IM:57209:test1
+
+-242624768 sent: IM:57209:test1
+
+-253114624 read IM:49660:test3
+
+-232134912 read Transfer:1:orange:test2Defer:770:Transfer:4:sind:test2
+
+-232134912 read Defer:770:Transfer:2:sond:test3
+
+-232134912 read Execute:770
+
+-232134912 read Execute:1
+
+-232134912 read Withdraw:7:glass
+
+-232134912 read Deliver:4:none
+
+Goods:
+glass -5
+none 4
+send 1
+sond -2
+Neighbours:
+nc
+test3

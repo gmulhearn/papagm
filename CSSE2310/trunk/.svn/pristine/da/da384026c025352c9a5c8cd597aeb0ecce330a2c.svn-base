@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+typedef enum {
+    NORMAL_EXIT = 0,
+    INCORRECT_NUM_ARGS = 1,
+    INVALID_NUM_PLAYERS = 2,
+    INVALID_POSITION = 3,
+    INVALID_THRESHOLD = 4,
+    INVALID_HAND_SIZE = 5,
+    INVALID_MSG = 6,
+    UNEXPECTED_EOF = 7
+} Status;
+
+extern Status show_message(Status s);
+extern void check_basic_args(int argv, char** argc);

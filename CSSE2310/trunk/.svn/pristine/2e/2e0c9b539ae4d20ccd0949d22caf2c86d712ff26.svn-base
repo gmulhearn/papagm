@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct card {
+	char suit;
+	int number;
+	int null; //1 = null
+};
+
+struct player {
+	// array of cards
+};
+
+void newGame(char** argv) {
+	
+	struct card board[atoi(argv[2])][atoi(argv[3])];
+	
+	//initialize blank board
+
+}
+
+void place(int x, int y, struct card card, struct card** board) {
+	board[x][y] = card;
+}
+
+void printBoard(struct card** board) {
+	
+}
+
+void game(int width, int height, char p1type, char p2type) {
+	
+
+}
+
+int main(int argc, char** argv) {
+	
+	if (argc == 6) {
+		newGame(argv);
+	}
+
+	if (argc == 4) {
+		//code to load game
+	}
+
+	else {
+		//exit status 1
+		
+	}
+
+	return 0;
+}

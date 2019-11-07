@@ -1,0 +1,291 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <math.h>
+#include <limits.h>
+
+//Exit Status enum's, to be used with exit(Status);
+typedef enum {
+    NORMAL_EXIT = 0,
+    LESS_THAN_FOUR_ARGS = 1,
+    INVALID_THRESHOLD = 2,
+    DECK_READ_ERR = 3,
+    NOT_ENOUGH_CARDS = 4,
+    PLAYER_ERR = 5,
+    UNEXPECTED_EOF = 6,
+    INVALID_MSG = 7,
+    INVALID_CHOICE = 8,
+    RECEIVED_SIGHUP = 9
+} Status;
+
+/**
+ * Places a message in stderr depending on the Status parameter
+ * Returns the same status that was inputed
+ */
+Status show_message(Status s) {
+    const char* messages[] = {"",
+            "Usage: 2310hub deck threshold player0 {player1}\n",
+            "Invalid threshold\n",
+            "Deck error\n",
+            "Not enough cards\n",
+            "Player error\n",
+            "Player EOF\n",
+            "Invalid message\n",
+            "Invalid card choice\n",
+            "Ended due to signal\n"};
+
+    fputs(messages[s], stderr);
+    return s;
+}
+
+//struct for Card. Stores the rank and suit of the card.
+typedef struct {
+    char rank;
+    char suit;
+} Card;
+
+//struct for Deck. Stores an array of cards, the length of that array,
+//and the amount of cards that have been used (i.e. given) in that deck.
+typedef struct {
+    unsigned int length;
+    unsigned int used;
+    Card* cards;
+} Deck;
+
+//struct for player Hand. Stores an array of cards which a player possesses,
+//and the size of that array.
+typedef struct {
+    unsigned int size;
+    Card* cards;
+} Hand;
+
+//struct for Player. Stores the players Hand, their unique ID given to them,
+//their name (specified in the input args i.e. ./alice), their current num
+//of points in the game, the amount of rounds they have won, and the amount
+//of D cards they had placed during rounds they won.
+typedef struct {
+    Hand hand;
+    int myID;
+    char* name;
+    int points;
+    int roundsWon;
+    int numDOnWin;
+} Player;
+
+//struct for Round. Stores the lead card suit type, lead player, and the ID
+//of the current players turn.
+//Post round, a winner and array of cards placed during the round will be
+//also stored.
+typedef struct {
+    char leadSuit;
+    int currTurn;
+    Player leader;
+    Player winner;
+    Card* cardsPlaced;
+} Round;
+
+//Struct for Game. stores the number of rounds, the current round number,
+//an array of rounds in the game, the number of players and array of Player's,
+//the threshold and initial arguments.
+typedef struct {
+    int numRounds;
+    int currentRound;
+    Round* rounds;
+    int numPlayers;
+    Player* players;
+    int threshold;
+
+    int argv;
+    char** argc;
+} Game;
+
+
+//return false if inputed string is not an int
+//return true if is an int
+bool check_if_num(char* string) {
+    for (int i = 0; i < strlen(string); i++) {
+        if (string[i] - '0' < 0 || string[i] - '0' > 9) {
+            return false;
+        }
+    }
+    if (strlen(string) == 0) {
+        return false;
+    }
+    return true;
+}
+
+//performs initial check of inputted arguments,
+//throws error if any of the arguments are invalid
+void check_basic_args(int argv, char** argc) {
+    if (argv < 5) {
+        exit(show_message(LESS_THAN_FOUR_ARGS));
+    }
+    if (!check_if_num(argc[2]) || atoi(argc[2]) < 2) {
+        exit(show_message(INVALID_THRESHOLD));
+    }
+}
+
+//checks 2 chars to see if they conform to being a suit and rank of a card
+//returns false if either the suit or rank character are invalid.
+//returns true if valid for card.
+bool check_card_valid(char suit, char rank) {
+    if (suit != 'S' && suit != 'C' && suit != 'D' && suit != 'H') {
+        return false;
+    }
+    if (!((rank >= '1' && rank <= '9') || (rank >= 'a' && rank <= 'f'))) {
+        return false;
+    }
+    return true;
+}
+
+//attempts to load/generate a Deck from a file name. 
+//Returns: deck struct if the file was formatted correctly
+//Throws error: if incorrectly formated deck file, or if file doesnt exist.
+Deck load_deck_file(char* fileName) {
+    FILE* deckFile = fopen(fileName, "r");
+    if (!deckFile) {
+        exit(show_message(DECK_READ_ERR));
+    }
+    Deck deck;
+    const short buffSize = (short)log10(INT_MAX) + 3;
+    char buffer[buffSize];
+    if (!fgets(buffer, buffSize - 1, deckFile)) {
+        exit(show_message(DECK_READ_ERR));
+    }
+    char* err;
+    unsigned int deckSize = strtoul(buffer, &err, 10);
+    if (*err != '\n') {
+        exit(show_message(DECK_READ_ERR));
+    }
+
+    Card* cards = malloc(sizeof(Card) * deckSize);
+
+    deck.length = deckSize;
+    for (int i = 0; i < deckSize; i++) {
+        if (!fgets(buffer, buffSize - 1, deckFile)) {
+            free(cards);
+            exit(show_message(DECK_READ_ERR));
+        }
+        if (((buffer[2] != '\n') && (buffer[2] != '\0')) ||
+                !check_card_valid(buffer[0], buffer[1])) {
+            free(cards);
+            exit(show_message(DECK_READ_ERR));
+        }
+        cards[i].rank = buffer[0];
+        cards[i].suit = buffer[1];
+    }
+    deck.used = 0;
+    deck.cards = cards;
+    fclose(deckFile);
+
+    return deck;
+}
+
+//converts a hand into a string that is valid to be sent to players.
+//Returns: a string format of the inputted Hand struct.
+char* hand_to_string(Hand* playerHand) {
+
+    char num[50];
+    sprintf(num, "%d", playerHand->size);
+    char* string = malloc(sizeof(char) * 
+            (4 + strlen(num) + 3 * (playerHand->size) + 1));
+
+    char commaSuitRank[3];
+
+    strcpy(string, "HAND"); 
+    strcat(string, num);
+    
+    for (int i = 0; i < playerHand->size; i++) {
+        sprintf(commaSuitRank, ",%c%c", 
+                playerHand->cards[i].suit, playerHand->cards[i].rank);
+        strcat(string, commaSuitRank);
+    }
+    
+    return string;
+}
+
+//Generates a hand from the deck given a certain handSize
+//Returns: a hand for a player containing *handSize* new cards from the deck
+Hand init_hand(Deck* deck, int handSize) {
+    Hand playerHand;
+    playerHand.size = handSize;
+
+    Card* cards = malloc(sizeof(Card) * handSize);
+
+    for (int i = 0; i < handSize; i++) {
+        cards[i] = deck->cards[deck->used];
+        deck->used++;
+    }
+    playerHand.cards = cards;
+
+    return playerHand;
+}
+
+//Initialises players for the game.
+//uses the game deck and inputted arguments (argc) from the game struct to
+//generate players, set up their pipes and exececute their programs. 
+void init_players(Game* game, Deck* deck) {
+    int handSize = (deck->length) / game->numPlayers;
+    if (handSize == 0) {
+        exit(show_message(NOT_ENOUGH_CARDS));
+    }
+    game->numRounds = handSize;
+    if (game->numPlayers < 1000) { //temp safety measure
+        for (int i = 0; i < game->numPlayers; i++) {
+            Player player;
+            Hand playerHand = init_hand(deck, handSize);
+            player.hand = playerHand;
+            player.myID = i;
+            player.name = game->argc[i + 3];
+            player.points = 0;
+            player.roundsWon = 0;
+            game->players[i] = player;
+            
+            //tempo:wq
+            //
+            //rary testing:
+            //char* string = hand_to_string(&playerHand);
+            //printf(string);
+            //free(string);
+            //printf("\n");
+            //fflush(stdin);
+            //
+            //probs fork here
+            
+        }
+    }
+}
+
+//Given initial arguments, generates the game struct 
+//Returns: initialized Game struct to be used for full game
+Game init_game(int argv, char** argc) {
+    Game game;
+    game.numPlayers = argv - 3;
+    game.threshold = atoi(argc[2]); //is ok because already checked arg
+    game.players = malloc(sizeof(Player) * game.numPlayers);
+    
+    //temporary measure
+    game.argv = argv;
+    game.argc = argc;
+
+    return game;
+}
+
+//Runs initial processes to check and set up the game in accordance 
+//with the inputted arugments (argc)
+void init(int argv, char** argc) {
+    check_basic_args(argv, argc);
+    Deck deck = load_deck_file(argc[1]);
+    Game game = init_game(argv, argc);
+    init_players(&game, &deck);
+
+}
+
+//main function
+int main(int argv, char** argc) {
+
+    init(argv, argc);
+    
+    return 0;
+}

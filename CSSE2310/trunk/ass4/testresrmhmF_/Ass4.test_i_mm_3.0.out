@@ -1,0 +1,29 @@
+-825354496 sent: IM:59872:test1
+
+-825354496 read IM:2222:nc
+
+-825354496 read Connect:35787
+
+-835844352 sent: IM:59872:test1
+
+-835844352 read IM:35787:test2
+
+-825354496 read Connect:53217
+
+-846334208 sent: IM:59872:test1
+
+-846334208 read IM:53217:test3
+
+-825354496 read Transfer:1:orange:test2Defer:770:Transfer:4:sind:test2
+
+Goods:
+glass 2
+send 1
+Neighbours:
+nc
+test2
+test3
+-825354496 read Defer:770:Transfer:2:sond:test3
+
+-825354496 read Execute:770
+

@@ -1,0 +1,34 @@
+-2110347520 sent: IM:47133:test1
+
+-2110347520 read IM:2222:nc
+
+-2110347520 read Connect:58232
+
+-2110347520 read Connect:54393
+
+-2120837376 sent: IM:47133:test1
+
+-2131327232 sent: IM:47133:test1
+
+-2120837376 read IM:54393:test3
+
+-2110347520 read Transfer:1:orange:test2Defer:770:Transfer:4:sind:test2
+
+-2110347520 read Defer:770:Transfer:2:sond:test3
+
+-2110347520 read Execute:770
+
+-2110347520 read Execute:1
+
+-2110347520 read Withdraw:7:glass
+
+-2110347520 read Deliver:4:none
+
+Goods:
+glass -5
+none 4
+send 1
+sond -2
+Neighbours:
+nc
+test3

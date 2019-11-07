@@ -1,0 +1,14 @@
+-1383250176 read IM:2222:nc
+
+-1383250176 read Connect:49436
+
+-1393740032 read IM:49436:test2
+
+-1383250176 read Connect:49436
+
+Goods:
+glass 2
+send 1
+Neighbours:
+nc
+test2

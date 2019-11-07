@@ -1,0 +1,13 @@
+377571072 sent: IM:39461:test1
+
+377571072 read IM:2222:nc
+
+377571072 read Connect:46227
+
+367081216 sent: IM:39461:test1
+
+Goods:
+glass 2
+send 1
+Neighbours:
+nc

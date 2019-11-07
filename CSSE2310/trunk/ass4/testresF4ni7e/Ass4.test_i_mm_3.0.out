@@ -1,0 +1,31 @@
+1274353408 read IM:2222:nc
+
+1274353408 read Connect:59953
+
+1274353408 read Connect:48684
+
+1263863552 read IM:59953:test2
+
+1253373696 read IM:48684:test3
+
+1274353408 read Transfer:1:orange:test2Defer:770:Transfer:4:sind:test2
+
+1274353408 read Defer:770:Transfer:2:sond:test3
+
+1274353408 read Execute:770
+
+1274353408 read Execute:1
+
+1274353408 read Withdraw:7:glass
+
+1274353408 read Deliver:4:none
+
+Goods:
+glass -5
+none 4
+send 1
+sond -2
+Neighbours:
+nc
+test2
+test3

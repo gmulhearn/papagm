@@ -1,0 +1,13 @@
+1998391040 sent: IM:40917:test1
+
+1998391040 read IM:2222:nc
+
+1998391040 read Connect:36272
+
+1987901184 sent: IM:40917:test1
+
+Goods:
+glass 2
+send 1
+Neighbours:
+nc
