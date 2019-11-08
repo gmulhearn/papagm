@@ -127,18 +127,45 @@ public class NeuralNetwork {
         }
 
         //hidden layers
-        for (int i = this.layers.size() - 2; i >= 0; i--) {
-            //neurons = this.layers.get(i).getNeurons();
-            //for (int j = 0; j < neurons.size(); j++) {
+        for (int i = this.layers.size() - 2; i > 0; i--) {
+            neurons = this.layers.get(i).getNeurons();
+
+            for (int j = 0; j < neurons.size(); j++) {
+                Neuron neuron = neurons.get(j);
 
                 double deltaSum = 0;
 
-            //}
+                //sum all deltas * weights of the neurons connected to this
+                // neuron (neuron j in layer i).
+                for (Neuron child : this.layers.get(i + 1).getNeurons()) {
+                    deltaSum += child.getParentNeurons().get(neuron) * child.getStoredDelta();
+                }
+
+                // delta = deltaSum * out * (1 - out)
+                double delta =
+                        deltaSum * neuron.getActivation() * (1 - neuron.getActivation());
+
+                neuron.setStoredDelta(delta);
+
+                for (int k = 0; k < neuron.getParentNeurons().size(); k++) {
+                    Neuron parent =
+                            (Neuron) neuron.getParentNeurons().keySet().toArray()[k];
+                    double err =
+                            delta * parent.getActivation();
+                    double newWeight =
+                            neuron.getParentNeurons().get(parent) - learningRate * err;
+
+                    neuron.storeNewWeight(parent, newWeight);
+                }
+
+            }
         }
 
         //update weights
-        for (Neuron neuron : neurons) {
-            neuron.updateNeuronParentWeights();
+        for (int i = 1; i < this.layers.size(); i++) {
+            for (Neuron neuron : this.layers.get(i).getNeurons()) {
+                neuron.updateNeuronParentWeights();
+            }
         }
     }
 
@@ -181,7 +208,7 @@ public class NeuralNetwork {
 
         System.out.println(nn);
 
-        nn.backPropogate(out1, 0.2);
+        nn.backPropogate(out1, 0.5);
 
         System.out.println(nn);
     }
