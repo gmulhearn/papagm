@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class NeuralNetwork {
@@ -89,7 +90,55 @@ public class NeuralNetwork {
         for (int i = 0; i < iterations; i++) {
             int randomDataPoint =
                     (int) (Math.random()*this.trainingSet.getData().size());
+            Double[] in =
+                    (Double[]) this.trainingSet.getData().keySet().toArray()[randomDataPoint];
+            Double[] expected = this.trainingSet.getData().get(in);
 
+            inputActivations(in);
+            calculate();
+
+
+        }
+    }
+
+    public void backPropogate(Double[] expectedOut, double learningRate) {
+        //method from https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+
+        //output layer:
+        List<Neuron> neurons =
+                this.layers.get(this.layers.size() - 1).getNeurons();
+
+        for (int i = 0;  i < neurons.size(); i++) {
+
+            double delta = // = - ((target - out) * out(1 - out))
+                    -1 * (expectedOut[i] - getOutput()[i]) * (getOutput()[i] * (1 - getOutput()[i]));
+            neurons.get(i).setStoredDelta(delta);
+
+            for (int j = 0; j < neurons.get(i).getParentNeurons().size(); j++) {
+                Neuron parent =
+                        (Neuron) neurons.get(i).getParentNeurons().keySet().toArray()[j];
+                double err =
+                        delta * parent.getActivation();
+                double newWeight =
+                        neurons.get(i).getParentNeurons().get(parent) - learningRate * err;
+
+                neurons.get(i).storeNewWeight(parent, newWeight);
+            }
+        }
+
+        //hidden layers
+        for (int i = this.layers.size() - 2; i >= 0; i--) {
+            neurons = this.layers.get(i).getNeurons();
+            for (int j = 0; j < neurons.size(); j++) {
+
+                double deltaSum = 0;
+
+            }
+        }
+
+        //update weights
+        for (Neuron neuron : neurons) {
+            neuron.updateNeuronParentWeights();
         }
     }
 
@@ -132,6 +181,8 @@ public class NeuralNetwork {
 
         System.out.println(nn);
 
-        System.out.println(nn.cost(nn.getOutput(), out1));
+        nn.backPropogate(out1, 20);
+
+        System.out.println(nn);
     }
 }
