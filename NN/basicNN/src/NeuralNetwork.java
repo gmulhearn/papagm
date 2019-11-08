@@ -128,12 +128,12 @@ public class NeuralNetwork {
 
         //hidden layers
         for (int i = this.layers.size() - 2; i >= 0; i--) {
-            neurons = this.layers.get(i).getNeurons();
-            for (int j = 0; j < neurons.size(); j++) {
+            //neurons = this.layers.get(i).getNeurons();
+            //for (int j = 0; j < neurons.size(); j++) {
 
                 double deltaSum = 0;
 
-            }
+            //}
         }
 
         //update weights
@@ -181,7 +181,7 @@ public class NeuralNetwork {
 
         System.out.println(nn);
 
-        nn.backPropogate(out1, 20);
+        nn.backPropogate(out1, 0.2);
 
         System.out.println(nn);
     }
