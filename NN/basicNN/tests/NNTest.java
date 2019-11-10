@@ -28,7 +28,7 @@ public class NNTest {
 
         NeuralNetwork nn = new NeuralNetwork(layers, test);
 
-        //System.out.println(nn);
+        System.out.println(nn);
 
         nn.trainingLoop(100000, 0.4);
 

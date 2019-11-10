@@ -3,17 +3,18 @@ import java.util.*;
 public class Neuron {
 
     private LinkedHashMap<Neuron, Double> parentNeurons; //weights
-    private LinkedHashMap<Neuron, Double> storedParentNeurons;
+    private LinkedHashMap<Neuron, Double> storedParentWeights;
 
     private double activation;
     private double bias;
     private double storedDelta;
+    private double storedBias;
 
     public int ID;
 
     public Neuron(int ID) {
         this.parentNeurons = new LinkedHashMap<>();
-        this.storedParentNeurons = new LinkedHashMap<>();
+        this.storedParentWeights = new LinkedHashMap<>();
         this.ID = ID;
     }
 
@@ -22,15 +23,23 @@ public class Neuron {
     }
 
     public void storeNewWeight(Neuron neuron, double weight) {
-        this.storedParentNeurons.put(neuron, weight);
+        this.storedParentWeights.put(neuron, weight);
     }
 
     public LinkedHashMap<Neuron, Double> getParentNeurons() {
         return this.parentNeurons;
     }
 
+    public double getBias() {
+        return this.bias;
+    }
+
     public void setBias(double bias) {
         this.bias = bias;
+    }
+
+    public void setStoredBias(double bias) {
+        this.storedBias = bias;
     }
 
     public double getActivation() {
@@ -60,13 +69,14 @@ public class Neuron {
         return sigmoid(sum);
     }
 
-    public void updateNeuronParentWeights() {
+    public void updateNeuron() {
         for (int i = 0; i < this.parentNeurons.size(); i++) {
             Neuron parent =
                     (Neuron) this.parentNeurons.keySet().toArray()[i];
 
-            this.setWeight(parent, this.storedParentNeurons.get(parent));
+            this.setWeight(parent, this.storedParentWeights.get(parent));
         }
+        this.bias = this.storedBias;
     }
 
     public static double sigmoid(double x) {

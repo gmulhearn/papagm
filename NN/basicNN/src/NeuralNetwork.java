@@ -1,6 +1,6 @@
 import java.util.*;
 
-import static jdk.nashorn.internal.objects.Global.println;
+//big inspiration from : https://github.com/yacineMahdid/DeepLearning/blob/master/Neural%20Network%20From%20Scratch/src/NeuralNetwork.java
 
 public class NeuralNetwork {
     private List<Layer> layers;
@@ -113,6 +113,9 @@ public class NeuralNetwork {
                     -1 * (expectedOut[i] - getOutput()[i]) * (getOutput()[i] * (1 - getOutput()[i]));
             neurons.get(i).setStoredDelta(delta);
 
+            neurons.get(i).setStoredBias(neurons.get(i).getBias() + delta * learningRate);
+
+
             for (int j = 0; j < neurons.get(i).getParentNeurons().size(); j++) {
                 Neuron parent =
                         (Neuron) neurons.get(i).getParentNeurons().keySet().toArray()[j];
@@ -146,6 +149,8 @@ public class NeuralNetwork {
 
                 neuron.setStoredDelta(delta);
 
+                neuron.setStoredBias(neuron.getBias() + delta * learningRate * 0.001);
+
                 for (int k = 0; k < neuron.getParentNeurons().size(); k++) {
                     Neuron parent =
                             (Neuron) neuron.getParentNeurons().keySet().toArray()[k];
@@ -163,7 +168,7 @@ public class NeuralNetwork {
         //update weights
         for (int i = 1; i < this.layers.size(); i++) {
             for (Neuron neuron : this.layers.get(i).getNeurons()) {
-                neuron.updateNeuronParentWeights();
+                neuron.updateNeuron();
             }
         }
     }
