@@ -34,9 +34,10 @@ public class Layer {
                 //neuron.setActivation(Math.random() * 2 - 1);
             } else {
                 for (Neuron parentNeuron : previous.getNeurons()) {
-                    neuron.setWeight(parentNeuron, Math.random() * 10 - 5); //tweak
+                    neuron.setWeight(parentNeuron, Math.random() * 2 - 1);
+                    //tweak
                 }
-                neuron.setBias(Math.random() * 30 - 15); //tweak
+                neuron.setBias(0); //tweak
                 neuron.setActivation(neuron.calculateActivation());
             }
         }

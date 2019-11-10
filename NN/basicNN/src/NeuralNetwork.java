@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+
+import static jdk.nashorn.internal.objects.Global.println;
 
 public class NeuralNetwork {
     private List<Layer> layers;
@@ -97,7 +96,7 @@ public class NeuralNetwork {
             inputActivations(in);
             calculate();
 
-
+            backPropogate(expected, learningRate);
         }
     }
 
@@ -191,25 +190,63 @@ public class NeuralNetwork {
     }
 
     public static void main(String[] args) {
-        int layers[] = {3, 2, 1};
+        int layers[] = {2, 6, 1};
 
-        Double in1[] = {0.34, 0.1, 0.7};
-        Double in2[] = {0.0, 1.0, 0.1};
-        Double out1[] = {0.2};
-        Double out2[] = {0.3};
+        Double in1[] = {1.0, 0.0};
+        Double in2[] = {0.0, 1.0};
+        Double in3[] = {0.0, 0.0};
+        Double in4[] = {1.0, 1.0};
+        Double out1[] = {1.0};
+        Double out2[] = {1.0};
+        Double out3[] = {0.0};
+        Double out4[] = {0.0};
 
-        TrainingSet test = new TrainingSet(3, 1);
+        TrainingSet test = new TrainingSet(2, 1);
         test.addData(in1, out1);
         test.addData(in2, out2);
+        test.addData(in3, out3);
+        test.addData(in4, out4);
 
         NeuralNetwork nn = new NeuralNetwork(layers, test);
-        nn.inputActivations(in1);
-        nn.calculate();
 
         System.out.println(nn);
 
-        nn.backPropogate(out1, 0.5);
+        nn.trainingLoop(100000, 0.4);
 
         System.out.println(nn);
+
+
+//        for (int i = 0; i < 4; i++) {
+//            switch (i) {
+//                case 0:
+//                    nn.inputActivations(in1);
+//                    nn.calculate();
+//                    if (Math.round(nn.getOutput()[0]) == out1[0]) {
+//                        System.out.println("1");
+//                    }
+//                    break;
+//                case 1:
+//                    nn.inputActivations(in2);
+//                    nn.calculate();
+//                    if (Math.round(nn.getOutput()[0]) == out2[0]) {
+//                        System.out.println("2");
+//                    }
+//                    break;
+//                case 2:
+//                    nn.inputActivations(in3);
+//                    nn.calculate();
+//                    if (Math.round(nn.getOutput()[0]) == out3[0]) {
+//                        System.out.println("3");
+//                    }
+//                    break;
+//                case 3:
+//                    nn.inputActivations(in4);
+//                    nn.calculate();
+//                    if (Math.round(nn.getOutput()[0]) == out4[0]) {
+//                        System.out.println("4");
+//                    }
+//                    break;
+//            }
+//        }
     }
 }
