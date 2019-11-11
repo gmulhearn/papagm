@@ -98,8 +98,7 @@ public class MnistPanel extends JPanel {
 
 		String path = new File("").getAbsolutePath();
 
-		MnistImageFile m = new MnistImageFile(path + "/resources/train-images" +
-				".idx3-ubyte", "rw");
+		MnistImageFile m = new MnistImageFile(path + "/resources/t10k-images.idx3-ubyte", "rw");
 		MnistLabelFile l = new MnistLabelFile(path + "/resources/train-labels" +
 				".idx1-ubyte", "rw");
 		

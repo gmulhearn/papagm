@@ -12,14 +12,14 @@ public class Mnist {
 
     public static void main(String[] args) {
 //        Network network = new Network(784, 70, 35, 10);
-          TrainingSet set = createTrainSet(0,4999);
+          TrainingSet set = createTrainSet(0,4999, 0);
 //        trainData(network, set, 100, 50, 100);
 //
 //        TrainSet testSet = createTrainSet(5000,9999);
 //        testTrainSet(network, testSet, 10);
     }
 
-    public static TrainingSet createTrainSet(int start, int end) {
+    public static TrainingSet createTrainSet(int start, int end, int type) {
 
         TrainingSet set = new TrainingSet(28 * 28, 10);
 
@@ -31,6 +31,10 @@ public class Mnist {
                     "/train-images.idx3-ubyte", "rw");
             MnistLabelFile l = new MnistLabelFile(path + "/resources" +
                     "/train-labels.idx1-ubyte", "rw");
+            if (type == 1) {
+                m = new MnistImageFile(path + "/resources/t10k-images.idx3-ubyte", "rw");
+                l = new MnistLabelFile(path + "/resources/t10k-labels.idx1-ubyte", "rw");
+            }
 
             for(int i = start; i <= end; i++) {
                 if(i % 100 ==  0){

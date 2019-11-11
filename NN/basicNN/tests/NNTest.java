@@ -104,7 +104,7 @@ public class NNTest {
 
     @Test
     public void MnistTest1() throws IOException, ClassNotFoundException {
-        TrainingSet set = Mnist.createTrainSet(0, 10000);
+        TrainingSet set = Mnist.createTrainSet(0, 10000, 0);
 
         int layers[] = {784, 70, 35, 10};
 
@@ -115,6 +115,16 @@ public class NNTest {
 
         //NeuralNetworkSave.saveNN("Mnist1000iterations.txt", nn);
         Mnist.testTrainSet(nn, set, 10);
+    }
+
+    @Test
+    public void MnistTest10000PreBuilt() throws IOException, ClassNotFoundException {
+        NeuralNetwork nn = NeuralNetworkSave.loadNN("Mnist10000iterations.txt");
+
+        TrainingSet set = Mnist.createTrainSet(0, 5000, 1);
+
+        Mnist.testTrainSet(nn, set, 100);
+
     }
 
     @Test
