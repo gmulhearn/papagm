@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="639bae3c-51d6-4e50-b73e-c54cb467eaf0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/basicNN/mnist/MnistPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/basicNN/mnist/MnistPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/test/basicNN/NNTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/basicNN/NNTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/NNTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/NNTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mnist/MnistPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mnist/MnistPanel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -75,13 +75,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/NNTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="113" column="17" lean-forward="true" selection-start-line="113" selection-start-column="17" selection-end-line="113" selection-end-column="17" />
+              <caret line="113" column="8" selection-start-line="113" selection-start-column="8" selection-end-line="113" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/mnist/MnistPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-255">
+              <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mnist/Mnist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="50" column="62" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1573407833116" expanded="true" signature="2671:2746" ph="..." />
               </folding>
             </state>
           </provider>
@@ -102,17 +124,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mnist/MnistImageFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-231">
+            <state relative-caret-position="-647">
               <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mnist/MnistLabelFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="30" column="42" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -120,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mnist/MnistDbFile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="87" column="23" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="23" />
+            <state relative-caret-position="-233">
+              <caret line="20" column="36" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -146,6 +159,7 @@
       <find>unsignedB</find>
       <find>next</find>
       <find>bias</find>
+      <find>read</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -160,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/Layer.java" />
         <option value="$PROJECT_DIR$/src/NeuralNetwork.java" />
         <option value="$PROJECT_DIR$/src/MNISTReader.java" />
-        <option value="$PROJECT_DIR$/src/mnist/MnistPanel.java" />
         <option value="$PROJECT_DIR$/src/mnist/Mnist.java" />
         <option value="$PROJECT_DIR$/src/mnist/MnistImageFile.java" />
         <option value="$PROJECT_DIR$/resources/nnFormat" />
@@ -170,12 +183,13 @@
         <option value="$PROJECT_DIR$/src/nn/Neuron.java" />
         <option value="$PROJECT_DIR$/src/nn/TrainingSet.java" />
         <option value="$PROJECT_DIR$/tests/NNTest.java" />
+        <option value="$PROJECT_DIR$/src/mnist/MnistPanel.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1472" />
-    <option name="width" value="1744" />
+    <option name="x" value="1518" />
+    <option name="width" value="1698" />
     <option name="height" value="1732" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -233,7 +247,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573440208903" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573442408055" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -250,7 +264,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.NNTest.MnistTest1">
+  <component name="RunManager" selected="Application.MnistPanel">
+    <configuration name="MnistPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="mnist.MnistPanel" />
+      <module name="basicNN" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mnist.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="NNTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="basicNN" />
       <option name="PACKAGE_NAME" value="" />
@@ -280,16 +307,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NNTest.testXOR2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="basicNN" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="NNTest" />
-      <option name="METHOD_NAME" value="testXOR2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="NNTest.testXOR3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="basicNN" />
       <option name="PACKAGE_NAME" value="" />
@@ -302,11 +319,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MnistPanel" />
         <item itemvalue="JUnit.NNTest.MnistTest1" />
         <item itemvalue="JUnit.NNTest" />
         <item itemvalue="JUnit.NNTest.loadSaveNN" />
         <item itemvalue="JUnit.NNTest.testXOR3" />
-        <item itemvalue="JUnit.NNTest.testXOR2" />
       </list>
     </recent_temporary>
   </component>
@@ -324,23 +341,11 @@
       <workItem from="1573181602515" duration="4860000" />
       <workItem from="1573193477992" duration="3861000" />
       <workItem from="1573202304737" duration="1716000" />
-      <workItem from="1573396835282" duration="13724000" />
+      <workItem from="1573396835282" duration="15986000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="NNTest_loadSaveNN - 2019.11.11 at 04h 01m 13s.xml">
-      <configuration name="NNTest.loadSaveNN" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NNTest_loadSaveNN - 2019.11.11 at 04h 01m 32s.xml">
-      <configuration name="NNTest.loadSaveNN" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NNTest_loadSaveNN - 2019.11.11 at 04h 01m 51s.xml">
-      <configuration name="NNTest.loadSaveNN" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NNTest_loadSaveNN - 2019.11.11 at 04h 02m 00s.xml">
-      <configuration name="NNTest.loadSaveNN" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="NNTest_loadSaveNN - 2019.11.11 at 04h 02m 06s.xml">
       <configuration name="NNTest.loadSaveNN" configurationId="JUnit" />
     </history-entry>
@@ -359,9 +364,21 @@
     <history-entry file="NNTest_MnistTest1 - 2019.11.11 at 04h 53m 06s.xml">
       <configuration name="NNTest.MnistTest1" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="NNTest_MnistTest1 - 2019.11.11 at 12h 42m 11s.xml">
+      <configuration name="NNTest.MnistTest1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="NNTest_MnistTest1 - 2019.11.11 at 12h 42m 56s.xml">
+      <configuration name="NNTest.MnistTest1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="NNTest_MnistTest1 - 2019.11.11 at 12h 43m 38s.xml">
+      <configuration name="NNTest.MnistTest1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="NNTest_MnistTest1 - 2019.11.11 at 12h 44m 59s.xml">
+      <configuration name="NNTest.MnistTest1" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38151000" />
+    <option name="totallyTimeSpent" value="40413000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -373,10 +390,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="736" y="0" width="872" height="866" extended-state="0" />
-    <editor active="true" />
+    <frame x="759" y="0" width="849" height="866" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21253072" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2187105" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -385,7 +401,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32880434" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3396739" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26630434" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39945653" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -449,24 +465,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mnist/MnistPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="88" column="77" selection-start-line="88" selection-start-column="77" selection-end-line="88" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mnist/Mnist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="86" column="14" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1573407833116" expanded="true" signature="2671:2746" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mnist/MnistImageLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-537">
@@ -481,34 +479,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mnist/MnistImageFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-231">
-          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mnist/MnistDbFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="87" column="23" selection-start-line="87" selection-start-column="19" selection-end-line="87" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/nnFormat">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="10" selection-start-column="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nn/Layer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -555,10 +529,52 @@
     <entry file="file://$PROJECT_DIR$/tests/NNTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="113" column="17" lean-forward="true" selection-start-line="113" selection-start-column="17" selection-end-line="113" selection-end-column="17" />
+          <caret line="113" column="8" selection-start-line="113" selection-start-column="8" selection-end-line="113" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mnist/MnistDbFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-233">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mnist/Mnist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="50" column="62" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1573407833116" expanded="true" signature="2671:2746" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nn/Layer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mnist/MnistImageFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-647">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mnist/MnistPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-255">
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,8 @@
 package mnist;
 
+import nn.NeuralNetwork;
+import nn.NeuralNetworkSave;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -16,14 +19,18 @@ public class MnistPanel extends JPanel {
 	private static final long serialVersionUID = 2789376983756851940L;
 	private MnistImageFile image;
 	private MnistLabelFile label;
+	private NeuralNetwork nn;
 	
-	public int[] image_buffer = new int[784];
+	public Double[] image_buffer = new Double[784];
 	public int label_buffer = -1;
 
-	public MnistPanel(MnistImageFile image, MnistLabelFile label) {
+	public MnistPanel(MnistImageFile image, MnistLabelFile label) throws IOException, ClassNotFoundException {
 		super();
 		this.setImage(image);
 		this.setLabel(label);
+		System.out.println("Loading Neural Network...");
+		nn = NeuralNetworkSave.loadNN("Mnist10000iterations.txt");
+		System.out.println("Finished.");
 	}
 
 	public void nextImage() {
@@ -32,9 +39,14 @@ public class MnistPanel extends JPanel {
 			this.label.next();
 			
 			for(int i = 0; i < 784; i++){
-				image_buffer[i] = image.read();
+				image_buffer[i] = ((double)image.read()) / ((double)256);
+				//System.out.println(image_buffer[i]);
 			}
 			label_buffer = label.readLabel();
+
+			nn.inputActivations(image_buffer);
+			nn.calculate();
+			System.out.println("Guess: " + NeuralNetwork.indexOfHighestOut(nn.getOutput()));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -60,28 +72,30 @@ public class MnistPanel extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g){
-		System.out.println("ldkawlkdaw");
+		//System.out.println("ldkawlkdaw");
 		Graphics2D g2d = (Graphics2D) g;
 		
 		int w = this.getWidth();
 		int h = this.getHeight();
-		System.out.println(w+ "   " + h);
+		//System.out.println(w+ "   " + h);
 		g.clearRect(0, 0, w, h);
 		for(int i = 0; i < 784; i++){
 			int x = (i % 28) * w / 28;
 			int y = ((int)i / (int)28) * h / 28;
-			g2d.setColor(new Color(image_buffer[i]));
+			double color = image_buffer[i] * 256;
+			//System.out.println(color);
+			g2d.setColor(new Color((int) color));
 			g2d.fillRect(x, y, w / 28 + 1, h / 28 + 1);
 		}
 		Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f);
 	    g2d.setComposite(comp);
 	    g2d.setPaint(Color.red);
 	    g2d.setFont(new Font("Times Roman", Font.PLAIN, h));
-	    g2d.drawString(""+label_buffer,h / 2, w /2);
+	    //g2d.drawString(""+label_buffer,h / 2, w /2);
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException{
-		
+	public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException, ClassNotFoundException {
+
 		String path = new File("").getAbsolutePath();
 
 		MnistImageFile m = new MnistImageFile(path + "/resources/train-images" +
@@ -96,7 +110,7 @@ public class MnistPanel extends JPanel {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		MnistPanel p =new MnistPanel(m,l);
+		MnistPanel p =new MnistPanel(m, l);
 		p.nextImage();
 		
 		contentPane.add(p, BorderLayout.CENTER);
@@ -105,7 +119,7 @@ public class MnistPanel extends JPanel {
 		f.setVisible(true);
 		
 		for(int i = 0; i < 4000; i++){
-			Thread.sleep(500);
+			Thread.sleep(2000);
 			p.nextImage();
 			f.repaint();
 		}
