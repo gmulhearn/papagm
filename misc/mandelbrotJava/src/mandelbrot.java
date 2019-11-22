@@ -45,8 +45,14 @@ public class mandelbrot extends JFrame implements MouseListener {
 
                 float itt = ((float) this.isMandel(c)) / ((float) iterations);
 
-                if (itt < 1) {
-                    g.setColor(new Color(144, (int) (255 * itt), 255));
+                if (itt < 1.0/3) {
+                    g.setColor(new Color(144, (int) (255 * 3*itt), 255));
+                    g.fillRect(i2, j2, 1, 1);
+                } else if (itt < 2.0/3) {
+                    g.setColor(new Color(144, 255, (int) (255 - 255*(3*itt - 1.0))));
+                    g.fillRect(i2, j2, 1, 1);
+                } else if (itt < 1) {
+                    g.setColor(new Color((int) (144 + (255-144)*(3*itt - 2.0)), 255, 0));
                     g.fillRect(i2, j2, 1, 1);
                 } else {
                     g.setColor(Color.BLACK);
@@ -108,7 +114,7 @@ public class mandelbrot extends JFrame implements MouseListener {
     }
 
     public static void main(String[] args) {
-        mandelbrot mandelbrot = new mandelbrot(50);
+        mandelbrot mandelbrot = new mandelbrot(1000);
 
         Complex c = new Complex(0.1, 0);
 

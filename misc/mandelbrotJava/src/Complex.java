@@ -249,4 +249,8 @@ public class Complex extends Object {
         return x + " + i*" + y;
 
     }
+
+    public static void main(String[] args) {
+
+    }
 }
