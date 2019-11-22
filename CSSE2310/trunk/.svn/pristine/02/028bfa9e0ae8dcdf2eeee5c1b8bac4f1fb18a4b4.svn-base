@@ -1,6 +1,0 @@
-#include "2310sharedPlayer.h"
-
-int main(int argv, char** argc) {
-    check_basic_args(argv, argc);
-    return 0;
-}
