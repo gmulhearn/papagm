@@ -8,19 +8,24 @@ import java.awt.event.MouseMotionListener;
 public class mandelbrot extends JFrame implements MouseListener {
     private double x;
     private double y;
-    private double pixels[][];
-    private int zoom;
-    private int iterations;
 
     private double oldX;
     private double oldY;
 
-    public mandelbrot(int iterations) {
+    private int zoom;
+    private int iterations;
+    private int mode;
+
+    /**
+     * mode: 0 = mandelbrot, 1 = julia
+    */
+    public mandelbrot(int iterations, int mode) {
         //bottom corner x & y
         x = -2;
         y = -1;
         zoom = 1;
         this.iterations = iterations;
+        this.mode = mode;
 
         setTitle("Mandelbrot");
         setBounds(100, 100, 800, 600);
@@ -45,8 +50,12 @@ public class mandelbrot extends JFrame implements MouseListener {
                 int j2 = j;
 
                 Complex c = new Complex(this.x + i2 / (300.0 * zoom), this.y + j2 / (300.0 * zoom));
-
-                float itt = ((float) this.isJulia(c)) / ((float) iterations);
+                float itt;
+                if (this.mode == 0) {
+                    itt = ((float) this.isMandel(c)) / ((float) iterations);
+                } else {
+                    itt = ((float) this.isJulia(c)) / ((float) iterations);
+                }
 
                 if (itt < 1.0 / 3) {
                     g.setColor(new Color(144, (int) (255 * 3 * itt), 255));
@@ -59,11 +68,6 @@ public class mandelbrot extends JFrame implements MouseListener {
                     g.fillRect(i2, j2, 1, 1);
                 } else {
                     g.setColor(Color.BLACK);
-                    g.fillRect(i2, j2, 1, 1);
-                }
-
-                if (c.real() == 0) {
-                    g.setColor(Color.RED);
                     g.fillRect(i2, j2, 1, 1);
                 }
 
@@ -161,10 +165,6 @@ public class mandelbrot extends JFrame implements MouseListener {
     }
 
     public static void main(String[] args) {
-        mandelbrot mandelbrot = new mandelbrot(1000);
-
-        Complex c = new Complex(0.1, 0);
-
-        System.out.println(mandelbrot.isMandel(c));
+        mandelbrot mandelbrot = new mandelbrot(1000, 0);
     }
 }
