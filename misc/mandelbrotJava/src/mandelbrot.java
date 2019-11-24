@@ -12,6 +12,9 @@ public class mandelbrot extends JFrame implements MouseListener {
     private int zoom;
     private int iterations;
 
+    private double oldX;
+    private double oldY;
+
     public mandelbrot(int iterations) {
         //bottom corner x & y
         x = -2;
@@ -41,18 +44,18 @@ public class mandelbrot extends JFrame implements MouseListener {
                 int i2 = i;
                 int j2 = j;
 
-                Complex c = new Complex(this.x + i2/(300.0*zoom), this.y + j2/(300.0*zoom));
+                Complex c = new Complex(this.x + i2 / (300.0 * zoom), this.y + j2 / (300.0 * zoom));
 
-                float itt = ((float) this.isMandel(c)) / ((float) iterations);
+                float itt = ((float) this.isJulia(c)) / ((float) iterations);
 
-                if (itt < 1.0/3) {
-                    g.setColor(new Color(144, (int) (255 * 3*itt), 255));
+                if (itt < 1.0 / 3) {
+                    g.setColor(new Color(144, (int) (255 * 3 * itt), 255));
                     g.fillRect(i2, j2, 1, 1);
-                } else if (itt < 2.0/3) {
-                    g.setColor(new Color(144, 255, (int) (255 - 255*(3*itt - 1.0))));
+                } else if (itt < 2.0 / 3) {
+                    g.setColor(new Color(144, 255, (int) (255 - 255 * (3 * itt - 1.0))));
                     g.fillRect(i2, j2, 1, 1);
                 } else if (itt < 1) {
-                    g.setColor(new Color((int) (144 + (255-144)*(3*itt - 2.0)), 255, 0));
+                    g.setColor(new Color((int) (144 + (255 - 144) * (3 * itt - 2.0)), 255, 0));
                     g.fillRect(i2, j2, 1, 1);
                 } else {
                     g.setColor(Color.BLACK);
@@ -86,23 +89,67 @@ public class mandelbrot extends JFrame implements MouseListener {
         return i;
     }
 
+    public int isJulia(Complex c) {
+        Complex jConst = new Complex(0.355534, -0.337292);
+
+        int i;
+
+        for (i = 0; i < iterations; i++) {
+            //System.out.println(z.toString());
+            c = c.times(c).plus(jConst);
+
+            double mag = c.imag() * c.imag() + c.real() * c.real();
+
+            if (mag > 4) {
+                break;
+            }
+
+        }
+        return i;
+    }
 
 
-
+    /**
+     * handles the zoom event
+     * @param e
+     */
     public void mouseClicked(MouseEvent e) {
+        //left click == zoom in
+        if (e.getButton() == 1) {
+            this.x += (e.getX() - 200) / (300.0 * zoom);
+            this.y += (e.getY() - 150) / (300.0 * zoom);
+            this.zoom *= 2;
+        }
+
+        //right click == zoom out
+        if (e.getButton() == 3 && zoom > 1) {
+            this.x -= (e.getX() - 200) / (300.0 * zoom);
+            this.y -= (e.getY() - 150) / (300.0 * zoom);
+            this.zoom *= (1.0/2);
+        }
+
+        repaint();
 
     }
 
     public void mousePressed(MouseEvent e) {
-        this.x += (e.getX()-200)/(300.0*zoom);
-        this.y += (e.getY()-150)/(300.0*zoom);
-        this.zoom *= 2;
-        //System.out.println(x);
-        repaint();
+        this.oldX = e.getX();
+        this.oldY = e.getY();
     }
 
+    /**
+     * handles the drag event - moving the camera
+     * @param e
+     */
     public void mouseReleased(MouseEvent e) {
+        //System.out.println(e.getX() + "   " + this.oldX);
+        double xDiff = e.getX() - this.oldX;
+        double yDiff = e.getY() - this.oldY;
 
+        this.x -= xDiff / (300.0 * zoom);
+        this.y -= yDiff / (300.0 * zoom);
+
+        repaint();
     }
 
     public void mouseEntered(MouseEvent e) {
