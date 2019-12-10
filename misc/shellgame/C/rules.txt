@@ -1,0 +1,14 @@
+SHELL GAME
+
+rules:
+
+1. play turn by turn with 2 players
+2. pick a bowl on your side to pick up (other then the pit)
+3. going clockwise, place a shell in each bowl until you run out
+4. once you run out:
+4.a. if your last shell is placed in a bowl with more shells, that bowl is picked up and then continue from rule 3.
+4.b. if your last shell is placed in the pit, continue from rule 2.
+4.c. if the bowl is empty and is on your side/row, pick up all the shells from that column (your bowl and opponents bowl) and place them in your pot. it is now the opponents turn.
+4.d if the bowl is empty and is on the opponents side/row, do nothing. it is now the opponents turn.
+5. play until all shells are in player pit
+6. the winner is the person with the most shells in their pit
