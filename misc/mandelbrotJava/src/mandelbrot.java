@@ -165,6 +165,6 @@ public class mandelbrot extends JFrame implements MouseListener {
     }
 
     public static void main(String[] args) {
-        mandelbrot mandelbrot = new mandelbrot(1000, 0);
+        mandelbrot mandelbrot = new mandelbrot(1000, 1);
     }
 }
